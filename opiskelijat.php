@@ -5,9 +5,9 @@
     <title>Opiskelijat</title>
 </head>
 <body>
+<li><a href="index.php">Takaisin</a></li>
     <h1>Opiskelijat</h1>
     
-    <!-- Opiskelijoiden listaus -->
     <?php
     $pdo = new PDO("mysql:host=localhost;dbname=oppilaitos", "root", "");
     $stmt = $pdo->query("SELECT * FROM opiskelijat");
@@ -26,7 +26,6 @@
     echo "</table>";
     ?>
 
-    <!-- Opiskelijan lisäyslomake -->
     <h2>Lisää opiskelija</h2>
     <form action="lisaa_opiskelija.php" method="post">
         <label>Etunimi: <input type="text" name="etunimi" required></label><br>
