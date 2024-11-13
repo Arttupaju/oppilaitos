@@ -5,7 +5,7 @@
     <title>Opiskelijat</title>
 </head>
 <body>
-<li><a href="index.php">Takaisin</a></li>
+    <li><a href="index.php">Takaisin</a></li>
     <h1>Opiskelijat</h1>
     
     <?php
@@ -20,7 +20,11 @@
         echo "<td>{$row['etunimi']}</td>";
         echo "<td>{$row['sukunimi']}</td>";
         echo "<td>{$row['vuosikurssi']}</td>";
-        echo "<td><a href='muokkaa_opiskelijaa.php?id={$row['opiskelijanumero']}'>Muokkaa</a> | <a href='poista_opiskelija.php?id={$row['opiskelijanumero']}'>Poista</a></td>";
+        echo "<td>
+            <a href='muokkaa_opiskelijaa.php?id={$row['opiskelijanumero']}'>Muokkaa</a> |
+            <a href='poista_opiskelija.php?id={$row['opiskelijanumero']}'>Poista</a> |
+            <a href='kurssikirjautumiset.php?id={$row['opiskelijanumero']}'>Näytä kurssikirjautumiset</a> |
+        </td>";
         echo "</tr>";
     }
     echo "</table>";

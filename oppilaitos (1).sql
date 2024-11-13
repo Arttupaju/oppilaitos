@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2024 at 10:47 AM
+-- Generation Time: Nov 13, 2024 at 08:55 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -31,18 +31,30 @@ CREATE TABLE `kurssikirjautumiset` (
   `tunnus` int(11) NOT NULL,
   `opiskelija_id` int(11) DEFAULT NULL,
   `kurssi_id` int(11) DEFAULT NULL,
-  `kirjautumispaiva` datetime DEFAULT current_timestamp()
+  `kirjautumispaiva` datetime DEFAULT current_timestamp(),
+  `opiskelijanumero` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `kurssikirjautumiset`
 --
 
-INSERT INTO `kurssikirjautumiset` (`tunnus`, `opiskelija_id`, `kurssi_id`, `kirjautumispaiva`) VALUES
-(1, 1, 1, '2024-10-31 09:18:50'),
-(2, 2, 1, '2024-10-31 09:18:50'),
-(4, 1, 3, '2024-10-31 09:18:50'),
-(5, 2, 3, '2024-10-31 09:18:50');
+INSERT INTO `kurssikirjautumiset` (`tunnus`, `opiskelija_id`, `kurssi_id`, `kirjautumispaiva`, `opiskelijanumero`) VALUES
+(1, 1, 1, '2024-10-31 09:18:50', 1),
+(2, 2, 1, '2024-10-31 09:18:50', 2),
+(4, 1, 3, '2024-10-31 09:18:50', 1),
+(5, 2, 3, '2024-10-31 09:18:50', 2),
+(6, 4, 5, '2024-11-13 09:43:27', NULL),
+(7, 4, 1, '2024-11-13 09:46:23', NULL),
+(8, 4, 3, '2024-11-13 09:47:09', 4),
+(9, 4, 2, '2024-11-13 09:47:18', NULL),
+(10, 4, 5, '2024-11-13 09:47:29', NULL),
+(11, 1, 5, '2024-11-13 09:47:55', NULL),
+(12, 2, 2, '2024-11-13 09:50:48', NULL),
+(13, 2, 1, '2024-11-13 09:50:55', NULL),
+(14, 2, 1, '2024-11-13 09:50:58', NULL),
+(15, 2, 1, '2024-11-13 09:51:06', NULL),
+(16, 4, 1, '2024-11-13 09:51:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -68,7 +80,8 @@ INSERT INTO `kurssit` (`tunnus`, `nimi`, `kuvaus`, `alkupaiva`, `loppupaiva`, `o
 (1, 'Matematiikan perusteet', 'Johdanto matematiikan perusteisiin.', '2024-01-15', '2024-05-30', 1, 1),
 (2, 'Fysiikan jatkokurssi', 'Syventävä fysiikan kurssi.', '2024-02-01', '2024-06-15', 2, 2),
 (3, 'Kemia ja yhteiskunta', 'Kemian rooli yhteiskunnassa.', '2024-03-01', '2024-07-01', 3, 3),
-(4, 'Kurssi', 'Kurssilla kursseillaan', '2024-01-01', '2024-02-02', 2, 3);
+(4, 'Kurssi', 'Kurssilla kursseillaan', '2024-01-01', '2024-02-02', 2, 3),
+(5, 'Pseudo tieteet', 'Valetieteiden opiskelua ryhmässä', '2024-12-12', '2025-12-12', 4, 2);
 
 -- --------------------------------------------------------
 
@@ -147,7 +160,8 @@ INSERT INTO `tilat` (`tunnus`, `nimi`, `kapasiteetti`) VALUES
 ALTER TABLE `kurssikirjautumiset`
   ADD PRIMARY KEY (`tunnus`),
   ADD KEY `opiskelija_id` (`opiskelija_id`),
-  ADD KEY `kurssi_id` (`kurssi_id`);
+  ADD KEY `kurssi_id` (`kurssi_id`),
+  ADD KEY `opiskelijanumero` (`opiskelijanumero`);
 
 --
 -- Indexes for table `kurssit`
@@ -183,13 +197,13 @@ ALTER TABLE `tilat`
 -- AUTO_INCREMENT for table `kurssikirjautumiset`
 --
 ALTER TABLE `kurssikirjautumiset`
-  MODIFY `tunnus` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `tunnus` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `kurssit`
 --
 ALTER TABLE `kurssit`
-  MODIFY `tunnus` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `tunnus` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `opettajat`
@@ -218,7 +232,8 @@ ALTER TABLE `tilat`
 --
 ALTER TABLE `kurssikirjautumiset`
   ADD CONSTRAINT `kurssikirjautumiset_ibfk_1` FOREIGN KEY (`opiskelija_id`) REFERENCES `opiskelijat` (`opiskelijanumero`) ON DELETE CASCADE,
-  ADD CONSTRAINT `kurssikirjautumiset_ibfk_2` FOREIGN KEY (`kurssi_id`) REFERENCES `kurssit` (`tunnus`) ON DELETE CASCADE;
+  ADD CONSTRAINT `kurssikirjautumiset_ibfk_2` FOREIGN KEY (`kurssi_id`) REFERENCES `kurssit` (`tunnus`) ON DELETE CASCADE,
+  ADD CONSTRAINT `kurssikirjautumiset_ibfk_3` FOREIGN KEY (`opiskelijanumero`) REFERENCES `opiskelijat` (`opiskelijanumero`);
 
 --
 -- Constraints for table `kurssit`
